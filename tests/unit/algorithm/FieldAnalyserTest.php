@@ -8,16 +8,16 @@ use function var_export;
 
 /**
  * @covers \sudoku\FieldAnalyser
- * @uses \sudoku\BoardData
+ * @uses \sudoku\Board
  */
 class FieldAnalyserTest extends TestCase
 {
 
-    private BoardData $boardData;
+    private Board $boardData;
 
     public function testReturnsPossibleValues()
     {
-        $this->boardData = new BoardData(
+        $this->boardData = new Board(
             [
                 9,null,6,  7,4,1,  8,null,2,
                 4,5,null, 9,null,8, null,6,3,

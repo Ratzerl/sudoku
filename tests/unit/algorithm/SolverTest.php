@@ -9,24 +9,26 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \sudoku\Solver
- * @uses \sudoku\BoardData
+ * @uses \sudoku\Board
+ * @uses \sudoku\BoardBuilder
  * @uses \sudoku\FieldAnalyser
  */
 class SolverTest extends TestCase
 {
 
     private Solver $solver;
+    private BoardBuilder $boardFactory;
 
     public function setUp() : void
     {
         $this->solver = new Solver();
+        $this->boardFactory = new BoardBuilder();
     }
 
     public function solvedSodukus() : array
     {
         return [
-            [
-                '
+            ['
              906 741 802
              450 908 063
              872 063 940
@@ -104,13 +106,13 @@ class SolverTest extends TestCase
      */
     public function testCanSolveSimple(string $problem, string $boardResultString)
     {
-        $board = BoardData::fromString(
+        $board = $this->boardFactory->fromString(
             $problem
         );
 
         $this->solver->solveBoard($board);
         $this->assertEquals(
-            BoardData::fromString($boardResultString),
+            $this->boardFactory->fromString($boardResultString),
             $board
         );
     }
@@ -118,7 +120,7 @@ class SolverTest extends TestCase
 
     public function testSolvesOnlyTillPossible()
     {
-        $board = BoardData::fromString(
+        $board = $this->boardFactory->fromString(
             '
              000 800 045
              460 000 001
@@ -136,7 +138,7 @@ class SolverTest extends TestCase
 
         $this->solver->solveBoard($board);
         $this->assertEquals(
-            BoardData::fromString(
+            $this->boardFactory->fromString(
                 '
              090 860 245
              468 205 901

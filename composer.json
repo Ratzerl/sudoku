@@ -1,7 +1,8 @@
 {
   "require": {
     "ext-json": "*",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "watoki/tempan" : "*"
   },
   "autoload": {
      "classmap": ["src/"]

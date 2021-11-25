@@ -7,5 +7,4 @@ composer.lock
 coverage
 ci/composer.phar
 composer.phar
-/.phpunit.cache/code-coverage/
 /.phpunit.cache/

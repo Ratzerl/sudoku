@@ -13,10 +13,10 @@ use function is_null;
 class Solver
 {
 
-    private BoardData $board;
+    private Board $board;
     private bool $anotherSolutionWasFound;
 
-    public function solveBoard(BoardData $board) : BoardData
+    public function solveBoard(Board $board) : Board
     {
         $this->board = $board;
         $fieldAnalyser = new FieldAnalyser($this->board);

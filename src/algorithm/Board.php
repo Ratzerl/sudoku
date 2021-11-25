@@ -6,12 +6,10 @@ namespace sudoku;
 
 
 use InvalidArgumentException;
-use function array_values;
 use function count;
-use function strlen;
-use function substr;
+use function json_encode;
 
-class BoardData
+class Board
 {
     private array $fields;
 
@@ -22,36 +20,16 @@ class BoardData
             throw new InvalidArgumentException('Can only create 9x9 sudoku');
             //@codeCoverageIgnoreEnd
         }
-        $this->fields = $fields;
-    }
-
-    public static function fromString(string $string) : BoardData
-    {
-        $ret = [];
-        for($i = 0; $i <strlen($string); $i++) {
-            $val = substr($string, $i, 1);
-            if ($val === '0') {
-                $ret[] = null;
-            } else if ($val === '1') {
-                $ret[] = 1;
-            } else {
-                switch ($val) {
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                        $ret[] = (int)$val;
-                }
-            }
+        $this->fields = [];
+        foreach($fields as $field) {
+            $this->addField($field);
         }
-
-        return new self($ret);
     }
 
+    private function addField(?int $field)
+    {
+        $this->fields[] = $field;
+    }
 
     public function getValue(int $int) : ?int
     {
@@ -130,6 +108,13 @@ class BoardData
         foreach ($solvedFieldsWithIndex as $index => $value) {
             $this->fields[$index] = $value;
         }
+    }
+
+    public function asJson() : string
+    {
+        return json_encode([
+            'fields' => $this->fields
+        ]);
     }
 
 }

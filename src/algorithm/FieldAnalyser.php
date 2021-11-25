@@ -10,13 +10,13 @@ use function array_key_exists;
 class FieldAnalyser
 {
 
-    private BoardData $board;
+    private Board $board;
     /**
      * @var int[]
      */
     private array $possible;
 
-    public function __construct(BoardData $board)
+    public function __construct(Board $board)
     {
         $this->board = $board;
     }
