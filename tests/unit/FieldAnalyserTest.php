@@ -1,13 +1,14 @@
 <?php
 
-namespace sudoko;
+namespace sudoku;
 
 
 use PHPUnit\Framework\TestCase;
 use function var_export;
 
 /**
- * @covers \sudoko\FieldAnalyser
+ * @covers \sudoku\FieldAnalyser
+ * @uses \sudoku\BoardData
  */
 class FieldAnalyserTest extends TestCase
 {

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace sudoko;
+namespace sudoku;
 
 
 use PHPUnit\Framework\TestCase;
@@ -10,7 +10,7 @@ use function array_keys;
 use function is_string;
 
 /**
- * @covers \sudoko\BoardData
+ * @covers \sudoku\BoardData
  */
 class BoardDataTest extends TestCase
 {
@@ -32,40 +32,6 @@ class BoardDataTest extends TestCase
                 000  000 003
                 000  000 001
         ');
-    }
-
-    public function testCanCreateFromArray()
-    {
-        $board = new BoardData(
-            [
-                1,2,3, 4,5,6, 7,8,null,
-                2,null,null, null,null,null, null,null,8,
-                null,null,null, null,null,null, null,null,7,
-
-                null,null,null, null,null,null, null,null,6,
-                null,null,null, null,null,null, null,null,5,
-                null,null,null, null,null,null, null,null,4,
-
-                null,null,null, null,null,null, null,null,3,
-                null,null,null, null,null,null, null,null,2,
-                null,null,null, null,null,null, null,null,1,
-            ]
-        );
-
-        $this->assertTrue(is_string($board->asString()));
-        $this->assertStringContainsString('1', $board->asString());
-        $this->assertStringContainsString('2', $board->asString());
-
-        $this->assertEquals("|123|456|78 
-|2  |   |  8
-|   |   |  7
-|   |   |  6
-|   |   |  5
-|   |   |  4
-|   |   |  3
-|   |   |  2
-|   |   |  1", $board->asString());
-
     }
 
     public function testCanGetRow()

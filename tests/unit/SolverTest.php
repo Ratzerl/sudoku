@@ -2,13 +2,15 @@
 declare(strict_types=1);
 
 
-namespace sudoko;
+namespace sudoku;
 
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \sudoko\Solver
+ * @covers \sudoku\Solver
+ * @uses \sudoku\BoardData
+ * @uses \sudoku\FieldAnalyser
  */
 class SolverTest extends TestCase
 {
@@ -107,7 +109,10 @@ class SolverTest extends TestCase
         );
 
         $this->solver->solveBoard($board);
-        $this->assertEquals($boardResultString, $board->asString());
+        $this->assertEquals(
+            BoardData::fromString($boardResultString),
+            $board
+        );
     }
 
 
@@ -130,15 +135,24 @@ class SolverTest extends TestCase
         );
 
         $this->solver->solveBoard($board);
-        $this->assertEquals('| 9 |86 |245
-|468|2 5|9 1
-|   |94 |6 8
-|   |   |  2
-|  9|45 |7 6
-|   | 2 |3  
-|85 | 92| 6 
-|94 |5 6|82 
-|632| 84|   ', $board->asString());
+        $this->assertEquals(
+            BoardData::fromString(
+                '
+             090 860 245
+             468 205 901
+             000 940 608
+             
+             000 000 002
+             009 450 706
+             000 020 300
+             
+             850 092 060 
+             940 506 820 
+             632 084 000
+             '
+            ),
+            $board
+        );
     }
 
     public function getPossiblesToSolve() : array

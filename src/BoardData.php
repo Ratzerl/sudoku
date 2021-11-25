@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace sudoko;
+namespace sudoku;
 
 
 use InvalidArgumentException;
@@ -52,24 +52,6 @@ class BoardData
         return new self($ret);
     }
 
-
-    public function asString() : string
-    {
-        $ret = '';
-        foreach ($this->fields as $key => $field) {
-            if ($key % 9 === 0 && $key !== 0) {
-                $ret .= "\n";
-            }
-            if ($key % 3 === 0) {
-                $ret .= '|';
-            }
-            $ret .= $field;
-            if ($field === null) {
-                $ret .= ' ';
-            }
-        }
-        return $ret;
-    }
 
     public function getValue(int $int) : ?int
     {

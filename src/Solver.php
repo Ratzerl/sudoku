@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace sudoko;
+namespace sudoku;
 
 
 use function array_keys;

@@ -2,12 +2,10 @@
 declare(strict_types=1);
 
 
-namespace sudoko;
+namespace sudoku;
 
 
 use function array_key_exists;
-use function count;
-use function var_export;
 
 class FieldAnalyser
 {

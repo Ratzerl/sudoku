@@ -3,8 +3,8 @@ config/
 vendor/
 composer.lock
 !/**/.gitkeep
-/tests/.phpunit.result.cache
-/tests/coverage
+.phpunit.result.cache
+coverage
 ci/composer.phar
 composer.phar
 /.phpunit.cache/code-coverage/
