@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \sudoku\Router
- * @uses \sudoku\Solver
- * @uses \sudoku\Board
- * @uses \sudoku\FieldAnalyser
+ * @uses \sudoku\Factory
+ * @uses \sudoku\HomePageRoute
+ * @uses \sudoku\SolverRoute
  * @uses \sudoku\Response
  */
 class RouterTest extends TestCase
@@ -19,30 +19,43 @@ class RouterTest extends TestCase
 
     private Router $router;
     /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|Solver
+     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|Factory
      */
-    private mixed $solver;
-    /**
-     * @var mixed|\PHPUnit\Framework\MockObject\MockObject|BoardBuilder
-     */
-    private mixed $builder;
+    private mixed $factory;
 
     public function setUp() : void
     {
-        $this->solver = $this->createMock(Solver::class);
-        $this->builder = $this->createMock(BoardBuilder::class);
+        $this->factory = $this->createMock(Factory::class);
 
         $this->router = new Router(
-            $this->solver,
-            $this->builder
+            $this->factory
         );
     }
 
-    public function testCanRouteOverview()
+    public function testRoutesToHomePageRoute()
     {
-        $response = $this->router->route('/', '');
+        $route = $this->createMock(HomePageRoute::class);
+        $route->expects($this->once())->method('route');
 
-        $this->assertEquals(200, $response->code());
+        $this->factory->expects($this->once())->method('homePageRoute')->willReturn(
+            $route
+        );
+
+        $this->router->route('/', '');
+
+    }
+
+    public function testRoutesToSolverRoute()
+    {
+        $route = $this->createMock(SolverRoute::class);
+        $route->expects($this->once())->method('route');
+
+        $this->factory->expects($this->once())->method('solverRoute')->willReturn(
+            $route
+        );
+
+        $this->router->route('/solve', '');
+
     }
 
     public function testReturns404IfUnknownRoute()
@@ -52,23 +65,4 @@ class RouterTest extends TestCase
         $this->assertEquals(404, $response->code());
     }
 
-    public function testCallsSolverWithBoardFromBuilder()
-    {
-        $board = $this->createMock(Board::class);
-        $this->builder->method('fromJson')->willReturn($board);
-
-        $this->solver->expects($this->once())->method('solveBoard')
-            ->with($board)->willReturn($board);
-
-        $response = $this->router->route(
-            '/solve',
-            'body'
-        );
-
-        $this->assertEquals(200, $response->code());
-        $this->assertEquals(
-            $board->asJson(),
-            $response->body()
-        );
-    }
 }

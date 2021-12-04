@@ -1,6 +1,14 @@
 <?php
 
+use sudoku\Factory;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$router = new sudoku\Router();
-echo $router->route($_GET, $_POST, $_REQUEST);
+$factory = new Factory();
+$router = $factory->router();
+$response = $router->route(
+    $_SERVER['REQUEST_URI'],
+    file_get_contents('php://input')
+);
+http_response_code($response->code());
+echo $response->body();

@@ -9,19 +9,15 @@ use function json_decode;
 
 class Router
 {
-    private Solver $solver;
-    private BoardBuilder $boardBuilder;
-
-    public function __construct(Solver $solver, BoardBuilder $boardBuilder)
+    public function __construct(Factory $factory)
     {
-        $this->solver = $solver;
-        $this->boardBuilder = $boardBuilder;
+        $this->factory = $factory;
     }
 
     public function route(string $url, string $body) : Response
     {
         if ($url === '/solve') {
-            return $this->solveSodoku($body);
+            return $this->factory->solverRoute()->route($body);
         } else if ($url === '/') {
             return $this->showStartPage();
         }
@@ -30,17 +26,9 @@ class Router
         );
     }
 
-    private function solveSodoku(string $body) : Response
-    {
-        $board = $this->boardBuilder->fromJson($body);
-
-        $this->solver->solveBoard($board);
-
-        return new Response(200, $board->asJson());
-    }
-
     private function showStartPage() : Response
     {
-        return new Response(200, 'OK');
+        return $this->factory->homePageRoute()->route();
+
     }
 }
