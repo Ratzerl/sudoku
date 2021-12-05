@@ -1,4 +1,4 @@
-# Soduku Php Solver
+# Sudoku Php Solver
 ## Scope
 Write test driven sudoku 9x9 solving algorithm. Wrote backtracking solving algorithms
 already in JAVA and PROLOG and I wanted to get a feeling in developing an algorithm test driven.
