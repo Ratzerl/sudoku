@@ -1,10 +1,8 @@
-config/
 .idea/
 vendor/
 composer.lock
-!/**/.gitkeep
-.phpunit.result.cache
 coverage
-ci/composer.phar
+scripts/composer.phar
 composer.phar
 /.phpunit.cache/
+/tests/.phpunit.result.cache

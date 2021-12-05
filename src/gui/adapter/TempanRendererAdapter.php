@@ -21,7 +21,6 @@ class TempanRendererAdapter implements Renderer
                 'input' => [
                     'name' => $i,
                     '_' => '',
-                    #'value' => $board->getValue($i)
                 ]
             ];
         };
